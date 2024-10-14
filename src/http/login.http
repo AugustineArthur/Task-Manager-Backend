@@ -1,0 +1,13 @@
+# Configuration
+
+@baseUrl = http://localhost:3090
+
+# Authentication
+
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "raymondtetteh@gmail.com",
+  "password": "password123"
+}

@@ -1,0 +1,15 @@
+# Configuration
+
+@baseUrl = http://localhost:3090
+
+# Register
+
+POST {{ baseUrl }}/api/v1/auth/signup
+Content-Type: application/json
+
+{
+  "fullname": "Raymond Tetteh",
+  "email": "raymondtetteh@gmail.com",
+  "password": "password123"
+}
+

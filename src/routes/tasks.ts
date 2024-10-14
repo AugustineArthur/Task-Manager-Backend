@@ -7,7 +7,9 @@ const router: Router = express.Router();
 router.use(authenticateToken);
 
 router.post('/', createTask);
-router.get('/', getTasks);
+router.get('/', (req, res) => {
+  res.send('Hello from tasks');
+});
 router.put('/:id', updateTask);
 router.delete('/:id', deleteTask);
 
