@@ -3,13 +3,13 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 
-export const register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { username, email, password } = req.body;
+    const { fullname, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     
     const user = await User.query().insert({
-      username,
+      fullname,
       email,
       password: hashedPassword,
     });
