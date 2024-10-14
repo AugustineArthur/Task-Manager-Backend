@@ -5,6 +5,7 @@ Model.knex(knex);
 
 class User extends Model {
   id!: number;
+  username!: string;
   fullname!: string;
   email!: string;
   password!: string;
@@ -20,6 +21,7 @@ class User extends Model {
       required: ['fullname', 'email', 'password'],
       properties: {
         id: { type: 'integer' },
+        username: { type: 'string', minLength: 1, maxLength: 255 },
         fullname: { type: 'string', minLength: 1, maxLength: 255 },
         email: { type: 'string', minLength: 1, maxLength: 255 },
         password: { type: 'string', minLength: 6 },

@@ -4,6 +4,7 @@ import { Knex } from 'knex';
      return knex.schema.createTable('users', (table) => {
        table.increments('id').primary();
        table.string('username', 255).notNullable().unique();
+       table.string('fullname', 255).notNullable();
        table.string('email', 255).notNullable().unique();
        table.string('password', 255).notNullable();
        table.enu('role', ['user', 'admin']).defaultTo('user');
