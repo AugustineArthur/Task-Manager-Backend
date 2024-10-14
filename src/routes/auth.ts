@@ -7,4 +7,12 @@ import express from 'express';
    router.post('/login', login);
 
    export default router;
-   
+
+// const router = express.Router();
+
+// const authController = require('../controllers/authController');
+
+// router.route('/loginin').post(authController.login);
+// router.route('/signup').post(authController.signup);
+
+// module.exports = router;
