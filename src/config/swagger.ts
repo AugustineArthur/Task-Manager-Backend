@@ -1,4 +1,6 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import Task from '../models/task';
+import User from '../models/user';
 
 const options = {
   definition: {
@@ -6,7 +8,7 @@ const options = {
     info: {
       title: 'Task Management API',
       version: '1.0.0',
-      description: 'A simple task management API',
+      description: 'A comprehensive task management API',
     },
     servers: [
       {
@@ -14,8 +16,25 @@ const options = {
         description: 'Development server',
       },
     ],
+    tags: [
+      { name: 'Auth', description: 'Authentication endpoints' },
+      { name: 'Tasks', description: 'Task management endpoints' },
+    ],
+    components: {
+      schemas: {
+        Task: Task.jsonSchema,
+        User: User.jsonSchema,
+      },
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
-  apis: ['./src/routes/*.ts'],
+  apis: ['./src/routes/*.ts', './src/models/*.ts'],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

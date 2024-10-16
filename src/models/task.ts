@@ -9,9 +9,9 @@ class Task extends Model {
   title!: string;
   description?: string;
   status!: 'todo' | 'in-progress' | 'done';
-  due_date?: Date;
-  createdAt!: Date;
-  updatedAt!: Date;
+  due_date?: string;
+  createdAt!: string;
+  updatedAt!: string;
 
   static get tableName() {
     return 'tasks';
@@ -20,7 +20,7 @@ class Task extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['user_id', 'title', 'createdAt', 'updatedAt'], // Include new fields as required
+      required: ['user_id', 'title', 'status'],
       properties: {
         id: { type: 'integer' },
         user_id: { type: 'integer' },
@@ -28,21 +28,27 @@ class Task extends Model {
         description: { type: ['string', 'null'] },
         status: { type: 'string', enum: ['todo', 'in-progress', 'done'] },
         due_date: { type: ['string', 'null'], format: 'date' },
-        createdAt: { type: 'string', format: 'date-time' }, // Add createdAt with date-time format
-        updatedAt: { type: 'string', format: 'date-time' }, // Add updatedAt with date-time format
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
       },
     };
   }
 
-  // Automatically set createdAt and updatedAt timestamps
+  $beforeValidate(jsonSchema: any, json: any, opt: any) {
+    // Ensure updatedAt is always a string
+    if (json.updatedAt) {
+      json.updatedAt = String(json.updatedAt);
+    }
+    return jsonSchema;
+  }
+
   $beforeInsert() {
-    const now = new Date(); // Get current date as Date object
-    this.createdAt = now; // Set createdAt
-    this.updatedAt = now; // Set updatedAt
+    this.createdAt = new Date().toISOString();
+    this.updatedAt = new Date().toISOString();
   }
 
   $beforeUpdate() {
-    this.updatedAt = new Date(); // Set updatedAt to current date as Date object
+    this.updatedAt = new Date().toISOString();
   }
 }
 
